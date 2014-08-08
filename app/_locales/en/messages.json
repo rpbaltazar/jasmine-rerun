@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "jasmine lunch failed tests",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Extension to launch failing jasmine specs (Jasmine Rice)",
+    "description": "The description of the application"
+  }
+}
