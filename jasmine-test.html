@@ -1,0 +1,28 @@
+<html>
+<a href="javascript:
+  (function(){
+    var v = '1.3.2';
+    if (window.jQuery === undefined || window.jQuery.fn.jquery < v) {
+      var done = false;
+      var script = document.createElement('script');
+      script.src = 'http://ajax.googleapis.com/ajax/libs/jquery/' + v + '/jquery.min.js';
+      script.onload = script.onreadystatechange = function(){
+        if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+          done = true;
+          initJasminRerun();
+        }
+      };
+      document.getElementsByTagName('head')[0].appendChild(script);
+    } else {
+      initJasminRerun();
+    }
+    function initJasminRerun() {
+      (window.myBookmarklet = function() {
+        failingSpecs = $('a.description:visible');
+        console.log(failingSpecs);
+      })();
+    }
+
+  })();">Jasmine Re-runner</a>
+
+</html>
