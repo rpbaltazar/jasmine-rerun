@@ -244,18 +244,23 @@ module.exports = function (grunt) {
         //         }
         //     }
         // },
-        // uglify: {
-        //     dist: {
-        //         files: {
-        //             '<%= config.dist %>/scripts/scripts.js': [
-        //                 '<%= config.dist %>/scripts/scripts.js'
-        //             ]
-        //         }
-        //     }
-        // },
-        // concat: {
-        //     dist: {}
-        // },
+        uglify: {
+            options: {
+              compress: {
+                drop_console: false
+              }
+            },
+            dist: {
+                files: {
+                    '<%= config.dist %>/scripts/*.js': [
+                        '<%= config.dist %>/scripts/*.js'
+                    ]
+                }
+            }
+        },
+        concat: {
+            dist: {}
+        },
 
         // Copies remaining files to places other tasks can use
         copy: {
@@ -271,6 +276,8 @@ module.exports = function (grunt) {
                         '{,*/}*.html',
                         'styles/{,*/}*.css',
                         'styles/fonts/{,*/}*.*',
+                        'scripts/background.js',
+                        'scripts/content.js',
                         '_locales/{,*/}*.json',
                     ]
                 }]
@@ -297,6 +304,12 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     buildnumber: true,
+                    content_scripts: [
+                      {
+                        matches: ["http://*/*"],
+                        js: ["scripts/content.js"]
+                      }
+                    ],
                     background: {
                         target: 'scripts/background.js',
                         exclude: [
@@ -347,9 +360,7 @@ module.exports = function (grunt) {
         'chromeManifest:dist',
         'useminPrepare',
         'concurrent:dist',
-        'cssmin',
-        'concat',
-        'uglify',
+
         'copy',
         'usemin',
         'compress'
