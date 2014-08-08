@@ -1,8 +1,8 @@
 {
-    "name": "__MSG_appName__",
-    "version": "0.0.41",
+    "name": "Jasmine Rerunner",
+    "version": "0.0.65",
     "manifest_version": 2,
-    "description": "__MSG_appDescription__",
+    "description": "Rerun Jasmine Failing tests, one on each new tab",
     "icons": {
         "16": "images/icon-16.png",
         "128": "images/icon-128.png"
@@ -11,27 +11,30 @@
     "background": {
         "scripts": [
             "scripts/chromereload.js",
-            "scripts/background.js"
+            "scripts/background.js",
+            "scripts/content.js"
         ]
     },
     "content_scripts": [
         {
             "matches": [
-                "http://*/*"
+                "http://*/*",
+                "https://*/*"
             ],
             "js": [
                 "scripts/content.js"
             ]
         }
     ],
-    "browser_action": {
+    "page_action": {
         "default_icon": {
             "19": "images/icon-19.png",
             "38": "images/icon-38.png"
         },
-        "default_title": "jasmine launch failed"
+        "default_title": "Jasmine Rerun"
     },
     "permissions": [
+        "declarativeContent",
         "tabs",
         "http://*/*",
         "https://*/*"

@@ -1,12 +1,12 @@
-openJasmineLinks = ()->
+chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
+  failingSpecsList = fetchJasmineFailingSpecs()
+  sendResponse failingSpecsList if request.action is "grab_jasmine_failing_urls"
 
-  console.log 'called open jasmine'
-
+fetchJasmineFailingSpecs = ->
   links = document.querySelectorAll(".specDetail.failed a.description")
-  base = window.location.href.split("?")[0].split('#')[0]
 
-  links.forEach (link)->
-    url = base + link.attributes.href.value
-    chrome.tabs.create
-      url: url
-      incognito: true
+  if links.length > 0
+    base = window.location.href.split("?")[0].split('#')[0]
+    links.map (link) -> base + link.attributes.href.value
+
+  return links
