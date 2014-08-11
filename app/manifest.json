@@ -1,6 +1,6 @@
 {
-    "name": "Jasmine Rerunner",
-    "version": "0.0.80",
+    "name": "Jasmine ReRunner",
+    "version": "0.0.86",
     "manifest_version": 2,
     "description": "Rerun Jasmine Failing tests, one on each new tab",
     "icons": {
@@ -30,7 +30,7 @@
             "19": "images/icon-19.png",
             "38": "images/icon-38.png"
         },
-        "default_title": "Jasmine Rerun"
+        "default_title": "Jasmine ReRunner"
     },
     "permissions": [
         "declarativeContent",
