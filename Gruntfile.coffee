@@ -166,7 +166,7 @@ module.exports = (grunt) ->
         options:
           archive: ->
             manifest = grunt.file.readJSON("app/manifest.json")
-            "package/jasmine-rerunner-" + manifest.version + ".zip"
+            "package/jasmine-rice-rerunner-" + manifest.version + ".zip"
 
         files: [
           expand: true
