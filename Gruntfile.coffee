@@ -24,17 +24,6 @@ module.exports = (grunt) ->
     # Project settings
     config: config
 
-    # Watches files for changes and runs tasks based on the changed files
-    watch:
-      coffee:
-        files: ["<%= config.app %>/scripts/{,*/}*.{coffee,litcoffee,coffee.md}"]
-        tasks: ["coffee:chrome"]
-        options:
-          livereload: true
-
-      gruntfile:
-        files: ["Gruntfile.js"]
-
     # Empties folders to start fresh
     clean:
       chrome: {}
@@ -47,51 +36,14 @@ module.exports = (grunt) ->
           ]
         ]
 
-    # Make sure code styles are up to par and there are no obvious mistakes
-    jshint:
-      options:
-        jshintrc: ".jshintrc"
-        reporter: require("jshint-stylish")
-
-      all: [
-        "Gruntfile.js"
-        "<%= config.app %>/scripts/{,*/}*.js"
-        "!<%= config.app %>/scripts/vendor/*"
-        "test/spec/{,*/}*.js"
-      ]
-
-    mocha:
-      all:
-        options:
-          run: true
-          urls: ["http://localhost:<%= connect.options.port %>/index.html"]
-
     # Compiles CoffeeScript to JavaScript
     coffee:
-      chrome:
-        files: [
-          expand: true
-          cwd: "<%= config.app %>/scripts"
-          src: "{,*/}*.{coffee,litcoffee,coffee.md}"
-          dest: "<%= config.app %>/scripts"
-          ext: ".js"
-        ]
-
       dist:
         files: [
           expand: true
           cwd: "<%= config.app %>/scripts"
           src: "{,*/}*.{coffee,litcoffee,coffee.md}"
           dest: "<%= config.app %>/scripts"
-          ext: ".js"
-        ]
-
-      test:
-        files: [
-          expand: true
-          cwd: "test/spec"
-          src: "{,*/}*.coffee"
-          dest: "./spec"
           ext: ".js"
         ]
 
@@ -137,12 +89,10 @@ module.exports = (grunt) ->
 
     # Run some tasks in parallel to speed up build process
     concurrent:
-      chrome: ["coffee:chrome"]
       dist: [
         "coffee:dist"
         "imagemin"
       ]
-      test: ["coffee:test"]
 
     # Auto buildnumber, exclude debug files. smart builds that event pages
     chromeManifest:
@@ -175,29 +125,19 @@ module.exports = (grunt) ->
           dest: ""
         ]
 
-  grunt.registerTask "debug", ->
-    grunt.task.run [
-      "jshint"
-      "concurrent:chrome"
-      "connect:chrome"
-      "watch"
-    ]
-    return
-
-  grunt.registerTask "test", [
-    "connect:test"
-    "mocha"
-  ]
   grunt.registerTask "build", [
     "clean:dist"
-    "chromeManifest:dist"
     "concurrent:dist"
     "copy"
+  ]
+
+  grunt.registerTask "release", [
+    "build"
+    "chromeManifest:dist"
     "compress"
   ]
+
   grunt.registerTask "default", [
-    "jshint"
-    "test"
     "build"
   ]
   return
