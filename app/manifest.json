@@ -1,6 +1,6 @@
 {
     "name": "JasmineRice ReRunner",
-    "version": "0.0.99",
+    "version": "0.0.100",
     "manifest_version": 2,
     "description": "Rerun JasmineRice Failing tests, each one opens in a new tab",
     "icons": {
