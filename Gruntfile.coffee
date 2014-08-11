@@ -23,6 +23,7 @@ module.exports = (grunt) ->
 
     # Project settings
     config: config
+    manifest: grunt.file.readJSON('app/manifest.json')
 
     # Empties folders to start fresh
     clean:
@@ -114,9 +115,7 @@ module.exports = (grunt) ->
     compress:
       dist:
         options:
-          archive: ->
-            manifest = grunt.file.readJSON("app/manifest.json")
-            "package/jasmine-rice-rerunner-" + manifest.version + ".zip"
+          archive: "package/<%=manifest.pkg_name%>-<%=manifest.version%>.zip"
 
         files: [
           expand: true
@@ -129,12 +128,8 @@ module.exports = (grunt) ->
     gittag:
       release:
         options:
-          tag: ->
-            manifest = grunt.file.readJSON("app/manifest.json")
-            manifest.version
-          message: "New version released"
-
-
+          tag: "release-<%=manifest.version%>"
+          message: "New version (<%=manifest.version%>) released"
 
   grunt.registerTask "build", [
     "clean:dist"

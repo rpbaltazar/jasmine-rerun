@@ -1,5 +1,6 @@
 {
     "name": "JasmineRice ReRunner",
+    "pkg_name": "jasmine-rice-rerunner",
     "version": "0.0.100",
     "manifest_version": 2,
     "description": "Rerun JasmineRice Failing tests, each one opens in a new tab",
