@@ -4,9 +4,10 @@ chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 
 fetchJasmineFailingSpecs = ->
   links = document.querySelectorAll(".specDetail.failed a.description")
-
+  urls = []
   if links.length > 0
     base = window.location.href.split("?")[0].split('#')[0]
-    links.map (link) -> base + link.attributes.href.value
+    urls = for item in links when item instanceof Element
+      base + item.attributes.href.value
 
-  return links
+  return urls

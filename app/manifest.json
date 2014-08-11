@@ -1,6 +1,6 @@
 {
     "name": "Jasmine Rerunner",
-    "version": "0.0.65",
+    "version": "0.0.80",
     "manifest_version": 2,
     "description": "Rerun Jasmine Failing tests, one on each new tab",
     "icons": {
@@ -18,8 +18,7 @@
     "content_scripts": [
         {
             "matches": [
-                "http://*/*",
-                "https://*/*"
+                "http://*/*"
             ],
             "js": [
                 "scripts/content.js"
@@ -38,5 +37,6 @@
         "tabs",
         "http://*/*",
         "https://*/*"
-    ]
+    ],
+    "incognito": "split"
 }
