@@ -125,6 +125,17 @@ module.exports = (grunt) ->
           dest: ""
         ]
 
+    # commit a git-tag whenever there is a release
+    gittag:
+      release:
+        options:
+          tag: ->
+            manifest = grunt.file.readJSON("app/manifest.json")
+            manifest.version
+          message: "New version released"
+
+
+
   grunt.registerTask "build", [
     "clean:dist"
     "concurrent:dist"
@@ -135,6 +146,7 @@ module.exports = (grunt) ->
     "build"
     "chromeManifest:dist"
     "compress"
+    "gittag"
   ]
 
   grunt.registerTask "default", [
