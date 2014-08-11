@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener () ->
       conditions: [
         new chrome.declarativeContent.PageStateMatcher
           pageUrl:
-            urlContains: 'g'
+            urlContains: 'jasmine'
       ]
       actions: [ new chrome.declarativeContent.ShowPageAction() ]
     ])
